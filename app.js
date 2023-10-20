@@ -1,5 +1,12 @@
+
 async function plusfunc(id,cena){
-    const pcena = cena+10
+
+    const liczba = parseInt(document.getElementById("cena"+id).innerHTML)
+    console.log(liczba)
+    const popliczba =  liczba+10
+    document.getElementById("cena"+id).innerHTML = popliczba
+    document.getElementById("cena"+id).style.color = "red"
+   /* const pcena = cena+10
 
     const data = await fetch(`http://localhost/wordpresstest/wp-json/wc/v3/products/${id}?regular_price=${pcena}`,{
         method: "POST",
@@ -7,14 +14,35 @@ async function plusfunc(id,cena){
             Authorization: `Basic ${btoa("FajnyKuba784:Paruwkatoja150")}`
         }
     })
-    const json = data.json()
+    const json = data.json()*/
 
 }
 
 async function minusfunc(id, cena){
-    const pcena = cena-10
+
+    const liczba = parseInt(document.getElementById("cena"+id).innerHTML)
+    const popliczba =  liczba-10
+    document.getElementById("cena"+id).innerHTML = popliczba
+    document.getElementById("cena"+id).style.color = "red"
+   
+   /* const pcena = cena-10
     console.log(cena)
     const data = await fetch(`http://localhost/wordpresstest/wp-json/wc/v3/products/${id}?regular_price=${pcena}`,{
+        method: "POST",
+        headers:{
+            Authorization: `Basic ${btoa("FajnyKuba784:Paruwkatoja150")}`
+        }
+    })
+    const json = data.json()*/
+
+}
+
+async function przeslij(id){
+
+    const liczba = parseInt(document.getElementById("cena"+id).innerHTML)
+
+
+    const data = await fetch(`http://localhost/wordpresstest/wp-json/wc/v3/products/${id}?regular_price=${liczba}`,{
         method: "POST",
         headers:{
             Authorization: `Basic ${btoa("FajnyKuba784:Paruwkatoja150")}`
@@ -66,12 +94,21 @@ async function getData(){
         divg.classList.add("glowny")
         const nazwa = document.createElement("h1")
         const cena = document.createElement("h2")
+        const liczbasprzedanych = document.createElement("h3")
         const plus = document.createElement("button")
         const minus = document.createElement("button")
+        const zatwiedz = document.createElement("button")
+        if(json[i].price<=10){
+            minus.style.backgroundColor = "black"
+        }
         nazwa.innerHTML = json[i].name
-        cena.innerHTML = json[i].price
-        plus.innerHTML = "+10"
+        cena.innerHTML = parseInt(json[i].price)
+        cena.setAttribute("id","cena"+json[i].id)
+        liczbasprzedanych.innerHTML = "Liczba sprzedanych: "+ json[i].total_sales
+        plus.innerHTML = "+10"  
         minus.innerHTML = "-10"
+        zatwiedz.innerHTML = "Zatwiedz"
+        zatwiedz.setAttribute("id","zatwiedz")
         plus.classList.add("buttony")
         plus.addEventListener('click',()=>{
 
@@ -84,10 +121,17 @@ async function getData(){
             minusfunc(json[i].id, parseInt(json[i].price))
 
         })
+        zatwiedz.addEventListener('click',()=>{
+
+            przeslij(json[i].id)
+
+        })
         divgura.appendChild(nazwa)
         divgura.appendChild(cena)
+        divgura.appendChild(liczbasprzedanych)
         divdol.appendChild(plus)
         divdol.appendChild(minus)
+        divdol.appendChild(zatwiedz)
         divg.appendChild(divgura)
         divg.appendChild(divdol)
         body.appendChild(divg) 

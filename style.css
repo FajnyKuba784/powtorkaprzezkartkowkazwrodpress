@@ -2,7 +2,7 @@
 
     border: 5px solid black;
     width: 300px;
-    height: 200px;
+    height: 330px;
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 60% 40%;
@@ -35,11 +35,16 @@
 .buttony{
 
     width: 50%;
-    height: 100%;
+    height: 60%;
 }
 #dodaj{
 
     width: 100%;
     height: 100%;
 
+}
+#zatwiedz{
+
+    width: 100%;
+    height: 40%;
 }
